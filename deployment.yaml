@@ -2,19 +2,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: crashloopbackoff-demo
-  labels:
-    app: crashloopbackoff
+  namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app:  crashloopbackoff
+      app: crashloopbackoff-demo
   template:
     metadata:
       labels:
-        app: crashloopbackoff
+        app: crashloopbackoff-demo
     spec:
       containers:
       - name: nginx-container
         image: nginx:latest
-        command: ["sh", "-c", "exit 1"]
+        ports:
+        - containerPort: 80
+        # Removed the problematic 'sleep 1' command
+        # Now nginx will run normally as a web server
