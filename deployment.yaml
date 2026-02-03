@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: crashloopbackoff-demo
+  name: nginx-deployment
   labels:
-    app: crashloopbackoff
+    app: nginx
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: crashloopbackoff
+      app: nginx
   template:
     metadata:
       labels:
-        app: crashloopbackoff
+        app: nginx
     spec:
       containers:
-      - name: nginx-container
-        image: nginx:latest
+      - name: nginx
+        image: nginx:1.14.2
         ports:
         - containerPort: 80
